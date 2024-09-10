@@ -87,6 +87,10 @@ pipeline {
     post {
         success {
             echo 'Production deployment successful!'
+             mail to: "dominicdiona@gmail.com",
+                 subject: "SUCCESS: Pipeline Execution Complete",
+                 body: "The entire pipeline has completed successfully. All stages have passed.",
+                     attachmentsPattern: '**/target/*.log'
         }
         failure {
             echo 'Production deployment failed. Review the errors and retry.'
