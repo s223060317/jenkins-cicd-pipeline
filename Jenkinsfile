@@ -18,16 +18,14 @@ pipeline {
             }
             post {
                 success {
-                    emailext to: "dominicdiona@gmail.com",
-                             subject: "SUCCESS: Unit and Integration Tests Passed",
-                             body: "Both unit and integration tests were successful. The codebase is functioning correctly.",
-                             attachmentsPattern: '**/target/test-*.xml' // Adjust the pattern to match your test reports
+                    mail to: "dominicdiona@gmail.com",
+                         subject: "SUCCESS: Unit and Integration Tests Passed",
+                         body: "Both unit and integration tests were successful. The codebase is functioning correctly."
                 }
                 failure {
-                    emailext to: "dominicdiona@gmail.com",
-                             subject: "ERROR: Unit and/or Integration Tests Failed",
-                             body: "Unit or integration tests failed. Please check the logs to diagnose the issue.",
-                             attachmentsPattern: '**/target/test-*.xml' // Adjust the pattern to match your test reports
+                    mail to: "dominicdiona@gmail.com",
+                         subject: "ERROR: Unit and/or Integration Tests Failed",
+                         body: "Unit or integration tests failed. Please check the logs to diagnose the issue."
                 }
             }
         }
@@ -46,16 +44,14 @@ pipeline {
             }
             post {
                 success {
-                    emailext to: "dominicdiona@gmail.com",
-                             subject: "SUCCESS: Security Scan Completed",
-                             body: "The security scan has been successfully completed with no issues detected.",
-                             attachmentsPattern: '**/zap-reports/*.html' // Adjust the pattern to match your security reports
+                    mail to: "dominicdiona@gmail.com",
+                         subject: "SUCCESS: Security Scan Completed",
+                         body: "The security scan has been successfully completed with no issues detected."
                 }
                 failure {
-                    emailext to: "dominicdiona@gmail.com",
-                             subject: "ERROR: Security Scan Failed",
-                             body: "The security scan encountered issues. Review and address the vulnerabilities.",
-                             attachmentsPattern: '**/zap-reports/*.html' // Adjust the pattern to match your security reports
+                    mail to: "dominicdiona@gmail.com",
+                         subject: "ERROR: Security Scan Failed",
+                         body: "The security scan encountered issues. Review and address the vulnerabilities."
                 }
             }
         }
@@ -90,16 +86,10 @@ pipeline {
 
     post {
         success {
-            emailext to: "dominicdiona@gmail.com",
-                     subject: "SUCCESS: Pipeline Execution Complete",
-                     body: "The entire pipeline has completed successfully. All stages have passed.",
-                     attachmentsPattern: '**/target/*.log' // Adjust the pattern to match your log files
+            echo 'Production deployment successful!'
         }
         failure {
-            emailext to: "dominicdiona@gmail.com",
-                     subject: "ERROR: Pipeline Execution Failed",
-                     body: "The pipeline execution has failed. Review the build logs and other details for troubleshooting.",
-                     attachmentsPattern: '**/target/*.log' // Adjust the pattern to match your log files
+            echo 'Production deployment failed. Review the errors and retry.'
         }
     }
 }
