@@ -103,3 +103,4 @@ pipeline {
             echo 'Pipeline failed. Check logs for more details.'
         }
     }
+}
