@@ -86,10 +86,17 @@ pipeline {
 
     post {
         success {
-            echo 'Production deployment successful!'
-        }
-        failure {
-            echo 'Production deployment failed. Review the errors and retry.'
-        }
+        archiveArtifacts artifacts: 'logs/**', allowEmptyArchive: true
+        mail to: "dominicdiona@gmail.com",
+             subject: "SUCCESS: Pipeline Completed",
+             body: "The pipeline execution was successful.",
+             attachmentsPattern: 'logs/**'
+    }
+    failure {
+        archiveArtifacts artifacts: 'logs/**', allowEmptyArchive: true
+        mail to: "dominicdiona@gmail.com",
+             subject: "ERROR: Pipeline Failed",
+             body: "The pipeline failed. Please check the attached log file for details.",
+             attachmentsPattern: 'logs/**'
     }
 }
