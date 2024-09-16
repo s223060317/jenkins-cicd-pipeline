@@ -76,10 +76,14 @@ pipeline {
                 // sh 'aws deploy create-deployment --application-name my-app --deployment-group-name production-group --s3-location bucket=production-bucket,key=my-app.zip'
             }
         }
-  
+
+        stage("Complete") {
+            steps {
+                echo 'Pipeline execution complete'
+            }
+        }
     }
 
-      
     post {
         success {
             echo 'Production deployment successful!'
@@ -88,5 +92,4 @@ pipeline {
             echo 'Production deployment failed. Review the errors and retry.'
         }
     }
-
 }
