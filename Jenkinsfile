@@ -77,11 +77,7 @@ pipeline {
             }
         }
 
-        stage("Complete") {
-            steps {
-                echo 'Pipeline execution complete'
-            }
-        }
+        
     }
 
     post {
