@@ -12,7 +12,7 @@ pipeline {
         stage("Testing: Unit & Integration") {
             steps {
                 echo 'Running JUnit tests to validate code functionality'
-                 sh 'mvn test > unit_test.log'
+                sh 'mvn test > unit_test.log'
                 sh 'mvn verify > integration_test.log'
             }
             post {
@@ -23,14 +23,12 @@ pipeline {
                 success {
                     mail to: "dominicdiona@gmail.com",
                          subject: "SUCCESS: Unit and Integration Tests Passed",
-                         body: "Both unit and integration tests were successful. The codebase is functioning correctly."
-                         attachmentsPattern: '*.log'
+                         body: "Both unit and integration tests were successful. The codebase is functioning correctly. Check logs for details."
                 }
                 failure {
                     mail to: "dominicdiona@gmail.com",
                          subject: "ERROR: Unit and/or Integration Tests Failed",
                          body: "Unit or integration tests failed. Please check the logs to diagnose the issue."
-                         attachmentsPattern: '*.log'
                 }
             }
         }
@@ -38,7 +36,7 @@ pipeline {
         stage("Code Quality Analysis") {
             steps {
                 echo 'Starting SonarQube analysis for code quality assurance'
-                 sh 'mvn sonar:sonar > sonar.log'
+                sh 'mvn sonar:sonar > sonar.log'
             }
         }
 
@@ -48,7 +46,7 @@ pipeline {
                 sh 'zap-cli quick-scan --self-contained --start-options "-config api.disablekey=true" http://localhost:8080 > security_scan.log'
             }
             post {
-                 always {
+                always {
                     // Archive the security log files
                     archiveArtifacts artifacts: '*.log', allowEmptyArchive: true
                 }
@@ -56,13 +54,11 @@ pipeline {
                     mail to: "dominicdiona@gmail.com",
                          subject: "SUCCESS: Security Scan Completed",
                          body: "The security scan has been successfully completed with no issues detected."
-                         attachmentsPattern: '*.log'
                 }
                 failure {
                     mail to: "dominicdiona@gmail.com",
                          subject: "ERROR: Security Scan Failed",
                          body: "The security scan encountered issues. Review and address the vulnerabilities."
-                         attachmentsPattern: '*.log'
                 }
             }
         }
