@@ -76,6 +76,8 @@ pipeline {
                 // sh 'aws deploy create-deployment --application-name my-app --deployment-group-name production-group --s3-location bucket=production-bucket,key=my-app.zip'
             }
         }
+  
+    }
 
       
     post {
@@ -86,5 +88,5 @@ pipeline {
             echo 'Production deployment failed. Review the errors and retry.'
         }
     }
-}
+
 }
