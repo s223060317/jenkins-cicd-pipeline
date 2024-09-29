@@ -18,18 +18,14 @@ pipeline {
             }
             post {
                 success {
-                    archiveArtifacts artifacts: '**/target/surefire-reports/*.txt', allowEmptyArchive: true
                     mail to: "dominicdiona@gmail.com",
                          subject: "SUCCESS: Unit and Integration Tests Passed",
-                         body: "Both unit and integration tests were successful. The codebase is functioning correctly.",
-                         attachmentsPattern: '**/target/surefire-reports/*.txt'
+                         body: "Both unit and integration tests were successful. The codebase is functioning correctly."
                 }
                 failure {
-                    archiveArtifacts artifacts: '**/target/surefire-reports/*.txt', allowEmptyArchive: true
                     mail to: "dominicdiona@gmail.com",
                          subject: "ERROR: Unit and/or Integration Tests Failed",
-                         body: "Unit or integration tests failed. Please check the attached logs to diagnose the issue.",
-                         attachmentsPattern: '**/target/surefire-reports/*.txt'
+                         body: "Unit or integration tests failed. Please check the logs to diagnose the issue."
                 }
             }
         }
@@ -48,18 +44,14 @@ pipeline {
             }
             post {
                 success {
-                    archiveArtifacts artifacts: '**/zap-report.html', allowEmptyArchive: true
                     mail to: "dominicdiona@gmail.com",
                          subject: "SUCCESS: Security Scan Completed",
-                         body: "The security scan has been successfully completed with no issues detected.",
-                         attachmentsPattern: '**/zap-report.html'
+                         body: "The security scan has been successfully completed with no issues detected."
                 }
                 failure {
-                    archiveArtifacts artifacts: '**/zap-report.html', allowEmptyArchive: true
                     mail to: "dominicdiona@gmail.com",
                          subject: "ERROR: Security Scan Failed",
-                         body: "The security scan encountered issues. Please review the attached report.",
-                         attachmentsPattern: '**/zap-report.html'
+                         body: "The security scan encountered issues. Review and address the vulnerabilities."
                 }
             }
         }
@@ -85,11 +77,11 @@ pipeline {
             }
         }
 
-        stage("Complete") {
+     stage("Complete") {
             steps {
                 echo 'Pipeline execution complete'
             }
-        }
+        }   
     }
 
     post {
