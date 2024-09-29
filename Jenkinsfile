@@ -90,6 +90,6 @@ pipeline {
         }
         failure {
             echo 'Production deployment failed. Review the errors and retry.'
-        }
-    }
+        }
+    }
 }
