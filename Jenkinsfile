@@ -22,11 +22,13 @@ pipeline {
                     mail to: "dominicdiona@gmail.com",
                     subject: "SUCCESS: Unit and Integration Tests Passed",
                     body: "Both unit and integration tests were successful. The codebase is functioning correctly."
+                    attachLog: true
                 }
                 failure {
                     mail to: "dominicdiona@gmail.com",
                     subject: "ERROR: Unit and/or Integration Tests Failed",
                     body: "Unit or integration tests failed. Please check the logs to diagnose the issue."
+                    attachLog: true
                 }
             }
         }
@@ -48,11 +50,13 @@ pipeline {
                     mail to: "dominicdiona@gmail.com",
                     subject: "SUCCESS: Security Scan Completed",
                     body: "The security scan has been successfully completed with no issues detected."
+                    attachLog: true
                 }
                 failure {
                     mail to: "dominicdiona@gmail.com",
                     subject: "ERROR: Security Scan Failed",
                     body: "The security scan encountered issues. Review and address the vulnerabilities."
+                    attachLog: true
                 }
             }
         }
@@ -85,10 +89,16 @@ pipeline {
     }
     post {
         success {
-            echo 'Production deployment successful!'
+             mail to: "dominicdiona@gmail.com",
+             subject: "Production deployment successful!"
+             body: " Check the attached log for details"
+             attachLog: true
         }
         failure {
-            echo 'Production deployment failed. Review the errors and retry.'
+            mail to: "dominicdiona@gmail.com",
+            subject: "Production deployment failed!"
+            body: "Production deployment failed. Review the errors and retry."
+            attachLog: true
         }
     }
 }
