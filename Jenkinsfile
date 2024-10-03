@@ -18,19 +18,11 @@ pipeline {
                 // sh 'mvn verify'
             }
             post {
-                success {
+                always {
                     emailext(
                         to: "dominicdiona@gmail.com",
-                        subject: "SUCCESS: Unit and Integration Tests Passed",
-                        body: "Both unit and integration tests were successful. The codebase is functioning correctly.",
-                        attachLog: true
-                    )
-                }
-                failure {
-                    emailext(
-                        to: "dominicdiona@gmail.com",
-                        subject: "ERROR: Unit and/or Integration Tests Failed",
-                        body: "Unit or integration tests failed. Please check the logs to diagnose the issue.",
+                        subject: "Unit & Integration Tests: ${currentBuild.currentResult}",
+                        body: "Unit and Integration tests status: ${currentBuild.currentResult}",
                         attachLog: true
                     )
                 }
@@ -50,19 +42,11 @@ pipeline {
                 // sh 'zap-cli quick-scan --self-contained --start-options "-config api.disablekey=true" http://localhost:8080'
             }
             post {
-                success {
+                always {
                     emailext(
                         to: "dominicdiona@gmail.com",
-                        subject: "SUCCESS: Security Scan Completed",
-                        body: "The security scan has been successfully completed with no issues detected.",
-                        attachLog: true
-                    )
-                }
-                failure {
-                    emailext(
-                        to: "dominicdiona@gmail.com",
-                        subject: "ERROR: Security Scan Failed",
-                        body: "The security scan encountered issues. Review and address the vulnerabilities.",
+                        subject: "Security Scan: ${currentBuild.currentResult}",
+                        body: "Security scan status: ${currentBuild.currentResult}",
                         attachLog: true
                     )
                 }
@@ -96,19 +80,11 @@ pipeline {
         }
     }
     post {
-        success {
+        always {
             emailext(
                 to: "dominicdiona@gmail.com",
-                subject: "Production deployment successful!",
-                body: "Check the attached log for details",
-                attachLog: true
-            )
-        }
-        failure {
-            emailext(
-                to: "dominicdiona@gmail.com",
-                subject: "Production deployment failed!",
-                body: "Production deployment failed. Review the errors and retry.",
+                subject: "Pipeline: ${currentBuild.currentResult}",
+                body: "Pipeline execution status: ${currentBuild.currentResult}",
                 attachLog: true
             )
         }
