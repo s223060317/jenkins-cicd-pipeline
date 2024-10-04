@@ -25,16 +25,16 @@ pipeline {
                     emailext (
                         to: "dominicdiona@gmail.com",
                         subject: "SUCCESS: Unit and Integration Tests Passed",
-                        body: "Both unit and integration tests were successful. The codebase is functioning correctly.",
-                        attachLog: true
+                        body: "${currentBuild.fullDisplayName} - Unit and integration tests passed.\nBuild log:\n${currentBuild.log}",
+                        attachLog: false  // Logs included in body instead of attachment
                     )
                 }
                 failure {
                     emailext (
                         to: "dominicdiona@gmail.com",
                         subject: "ERROR: Unit and/or Integration Tests Failed",
-                        body: "Unit or integration tests failed. Please check the logs to diagnose the issue.",
-                        attachLog: true
+                        body: "${currentBuild.fullDisplayName} - Unit or integration tests failed. Please review the logs.\nBuild log:\n${currentBuild.log}",
+                        attachLog: false  // Logs included in body instead of attachment
                     )
                 }
             }
@@ -45,6 +45,24 @@ pipeline {
                 echo 'Starting SonarQube analysis for code quality assurance'
                 // Uncomment the line below to perform SonarQube analysis
                 // sh 'mvn sonar:sonar'
+            }
+            post {
+                success {
+                    emailext (
+                        to: "dominicdiona@gmail.com",
+                        subject: "SUCCESS: SonarQube Analysis Completed",
+                        body: "SonarQube analysis has successfully completed.",
+                        attachLog: false
+                    )
+                }
+                failure {
+                    emailext (
+                        to: "dominicdiona@gmail.com",
+                        subject: "ERROR: SonarQube Analysis Failed",
+                        body: "SonarQube analysis encountered errors. Review the logs for details.",
+                        attachLog: false
+                    )
+                }
             }
         }
 
@@ -60,7 +78,7 @@ pipeline {
                         to: "dominicdiona@gmail.com",
                         subject: "SUCCESS: Security Scan Completed",
                         body: "The security scan has been successfully completed with no issues detected.",
-                        attachLog: true
+                        attachLog: false  // Attach log if needed
                     )
                 }
                 failure {
@@ -68,7 +86,7 @@ pipeline {
                         to: "dominicdiona@gmail.com",
                         subject: "ERROR: Security Scan Failed",
                         body: "The security scan encountered issues. Review and address the vulnerabilities.",
-                        attachLog: true
+                        attachLog: false  // Attach log if needed
                     )
                 }
             }
@@ -108,9 +126,21 @@ pipeline {
     post {
         success {
             echo 'Production deployment successful!'
+            emailext (
+                to: "dominicdiona@gmail.com",
+                subject: "SUCCESS: Pipeline Execution Completed",
+                body: "The pipeline has completed successfully. All stages were executed without errors.",
+                attachLog: false  // Attach log if necessary
+            )
         }
         failure {
             echo 'Production deployment failed. Review the errors and retry.'
+            emailext (
+                to: "dominicdiona@gmail.com",
+                subject: "ERROR: Pipeline Execution Failed",
+                body: "The pipeline encountered errors. Review the logs and retry.",
+                attachLog: false  // Attach log if necessary
+            )
         }
     }
 }
