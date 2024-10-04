@@ -4,42 +4,21 @@ pipeline {
     stages {
         stage("Build Stage") {
             steps {
-                script {
-                    // Use a variable to control verbosity
-                    def verbose = false
-
-                    if (verbose) {
-                        echo 'Executing Maven build: cleaning and packaging the project'
-                    } else {
-                        echo 'Executing Maven build...' // Shorter message
-                    }
-                    // Uncomment the line below to execute the Maven build
-                    // sh 'mvn clean install > /dev/null' // Redirect output to null
-                }
+                echo 'Executing Maven build: cleaning and packaging the project'
+                // Uncomment the line below to execute the Maven build
+                // sh 'mvn clean install'
             }
         }
 
         stage("Testing: Unit & Integration") {
             steps {
-                script {
-                    def verbose = false
-
-                    if (verbose) {
-                        echo 'Running JUnit tests to validate code functionality'
-                    } else {
-                        echo 'Running unit tests...' // Shorter message
-                    }
-                    // Uncomment the line below to run unit tests
-                    // sh 'mvn test > /dev/null' // Redirect output to null
-                    
-                    if (verbose) {
-                        echo 'Running integration tests to verify component interactions'
-                    } else {
-                        echo 'Running integration tests...' // Shorter message
-                    }
-                    // Uncomment the line below to run integration tests
-                    // sh 'mvn verify > /dev/null' // Redirect output to null
-                }
+                echo 'Running JUnit tests to validate code functionality'
+                // Uncomment the line below to run unit tests
+                // sh 'mvn test'
+                
+                echo 'Running integration tests to verify component interactions'
+                // Uncomment the line below to run integration tests
+                // sh 'mvn verify'
             }
             post {
                 success {
@@ -63,33 +42,17 @@ pipeline {
 
         stage("Code Quality Analysis") {
             steps {
-                script {
-                    def verbose = false
-
-                    if (verbose) {
-                        echo 'Starting SonarQube analysis for code quality assurance'
-                    } else {
-                        echo 'Running SonarQube analysis...' // Shorter message
-                    }
-                    // Uncomment the line below to perform SonarQube analysis
-                    // sh 'mvn sonar:sonar > /dev/null' // Redirect output to null
-                }
+                echo 'Starting SonarQube analysis for code quality assurance'
+                // Uncomment the line below to perform SonarQube analysis
+                // sh 'mvn sonar:sonar'
             }
         }
 
         stage("Security Assessment") {
             steps {
-                script {
-                    def verbose = false
-
-                    if (verbose) {
-                        echo 'Initiating security scan using OWASP ZAP'
-                    } else {
-                        echo 'Running security scan...' // Shorter message
-                    }
-                    // Uncomment the line below to run the security scan
-                    // sh 'zap-cli quick-scan --self-contained --start-options "-config api.disablekey=true" http://localhost:8080 > /dev/null' // Redirect output to null
-                }
+                echo 'Initiating security scan using OWASP ZAP'
+                // Uncomment the line below to run the security scan
+                // sh 'zap-cli quick-scan --self-contained --start-options "-config api.disablekey=true" http://localhost:8080'
             }
             post {
                 success {
@@ -113,49 +76,25 @@ pipeline {
 
         stage("Staging Deployment") {
             steps {
-                script {
-                    def verbose = false
-
-                    if (verbose) {
-                        echo 'Deploying application to the staging environment (AWS EC2, S3 bucket)'
-                    } else {
-                        echo 'Deploying to staging...' // Shorter message
-                    }
-                    // Uncomment the line below to deploy to the staging environment
-                    // sh 'aws deploy create-deployment --application-name my-app --deployment-group-name staging-group --s3-location bucket=staging-bucket,key=my-app.zip > /dev/null' // Redirect output to null
-                }
+                echo 'Deploying application to the staging environment (AWS EC2, S3 bucket)'
+                // Uncomment the line below to deploy to the staging environment
+                // sh 'aws deploy create-deployment --application-name my-app --deployment-group-name staging-group --s3-location bucket=staging-bucket,key=my-app.zip'
             }
         }
 
         stage("Staging Environment Tests") {
             steps {
-                script {
-                    def verbose = false
-
-                    if (verbose) {
-                        echo 'Executing integration tests on the staging environment'
-                    } else {
-                        echo 'Running staging integration tests...' // Shorter message
-                    }
-                    // Uncomment the line below to run integration tests in staging
-                    // sh 'mvn verify -Dtest=IntegrationTest > /dev/null' // Redirect output to null
-                }
+                echo 'Executing integration tests on the staging environment'
+                // Uncomment the line below to run integration tests in staging
+                // sh 'mvn verify -Dtest=IntegrationTest'
             }
         }
 
         stage("Production Deployment") {
             steps {
-                script {
-                    def verbose = false
-
-                    if (verbose) {
-                        echo 'Deploying the application to the production environment'
-                    } else {
-                        echo 'Deploying to production...' // Shorter message
-                    }
-                    // Uncomment the line below to deploy to production
-                    // sh 'aws deploy create-deployment --application-name my-app --deployment-group-name production-group --s3-location bucket=production-bucket,key=my-app.zip > /dev/null' // Redirect output to null
-                }
+                echo 'Deploying the application to the production environment'
+                // Uncomment the line below to deploy to production
+                // sh 'aws deploy create-deployment --application-name my-app --deployment-group-name production-group --s3-location bucket=production-bucket,key=my-app.zip'
             }
         }
 
