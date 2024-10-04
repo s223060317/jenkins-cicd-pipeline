@@ -25,17 +25,17 @@ pipeline {
                     emailext (
                         to: "dominicdiona@gmail.com",
                         subject: "SUCCESS: Unit and Integration Tests Passed",
-                        body: "Both unit and integration tests were successful. The codebase is functioning correctly."
+                        body: "Both unit and integration tests were successful. The codebase is functioning correctly.",
                         attachLog: true
-                   )
+                    )
                 }
                 failure {
                     emailext (
                         to: "dominicdiona@gmail.com",
                         subject: "ERROR: Unit and/or Integration Tests Failed",
-                        body: "Unit or integration tests failed. Please check the logs to diagnose the issue."
+                        body: "Unit or integration tests failed. Please check the logs to diagnose the issue.",
                         attachLog: true
-                   )
+                    )
                 }
             }
         }
@@ -59,17 +59,17 @@ pipeline {
                     emailext (
                         to: "dominicdiona@gmail.com",
                         subject: "SUCCESS: Security Scan Completed",
-                        body: "The security scan has been successfully completed with no issues detected."
+                        body: "The security scan has been successfully completed with no issues detected.",
                         attachLog: true
-                   )
+                    )
                 }
                 failure {
                     emailext (
                         to: "dominicdiona@gmail.com",
                         subject: "ERROR: Security Scan Failed",
-                        body: "The security scan encountered issues. Review and address the vulnerabilities."
+                        body: "The security scan encountered issues. Review and address the vulnerabilities.",
                         attachLog: true
-                   )
+                    )
                 }
             }
         }
