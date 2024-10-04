@@ -40,17 +40,6 @@ pipeline {
             }
         }
 
-
-    post {
-        success {
-            echo 'Production deployment successful!'
-        }
-        failure {
-            echo 'Production deployment failed. Review the errors and retry.'
-        }
-    }
-}
-    
         stage("Code Quality Analysis") {
             steps {
                 echo 'Starting SonarQube analysis for code quality assurance'
@@ -115,3 +104,13 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+            echo 'Production deployment successful!'
+        }
+        failure {
+            echo 'Production deployment failed. Review the errors and retry.'
+        }
+    }
+}
